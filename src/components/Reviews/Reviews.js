@@ -13,8 +13,6 @@ export default class Reviews extends Component {
     })
   }
   render() {
-    // console.log(this.state.content)
-
     return (
       <>
         <ul>

@@ -1,7 +1,7 @@
 import React from "react"
-import Navigation from '../Navigation/Navigation.js'
+import Navigation from "../Navigation/Navigation.js"
 
-const AppBar = ({children}) => (
+const AppBar = ({ children }) => (
   <div className="layout">
     <Navigation />
     {children}
