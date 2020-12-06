@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/MoviePreview/MoviePreview.module.css"],"names":[],"mappings":"AAAA,0BACE,YACF,CACA,+BACE,iBACF","file":"5.26ba35dc.chunk.css","sourcesContent":[".card {\r\n  display: flex;\r\n}\r\n.cardImage {\r\n  margin-right: 30px;\r\n}\r\n"]}
