@@ -37,8 +37,12 @@ export default class MovieDetailsView extends Component {
 
     const { match } = this.props
 
-    const main = (
+
+    return (
       <>
+        <Button onClick={this.handleGoBack} caption="Go back" />
+        {isLoad ? <Spinner /> : !isError && movie ?
+          (<>
         <MoviePreview
           name={movie.name}
           original_title={movie.original_title}
@@ -82,15 +86,7 @@ export default class MovieDetailsView extends Component {
           <Route path={`${match.path}/cast`} exact component={lazy(() => import("../../components/Cast/Cast"))} />
           <Route path={`${match.path}/reviews`} exact component={lazy(() => import("../../components/Reviews/Reviews"))} />
         </Switch>
-      </>
-    )
-
-    const mistakeMain = <p>NOT FOUND THIS PAGE</p>
-
-    return (
-      <>
-        <Button onClick={this.handleGoBack} caption="Go back" />
-        {isLoad ? <Spinner /> : !isError && movie ? main : mistakeMain}
+      </>) : (<p>NOT FOUND THIS PAGE</p>)}
       </>
     )
   }
