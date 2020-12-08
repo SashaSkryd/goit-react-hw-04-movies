@@ -16,7 +16,7 @@ export default class HomeView extends Component {
     return (
       <>
         <h1>Treanding today</h1>
-        <MovieList movies={this.state.data} />
+        <MovieList movies={this.state.data} location={this.props.location}/>
       </>
     )
   }

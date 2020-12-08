@@ -11,8 +11,8 @@ export function fetchPost() {
 
 export function fetchMovie(id) {
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${KEY}&language=en-US`
-  return axios.get(url).then((res) => {
-    return res.data
+  return axios.get(url).then((res) => { 
+    return res.data 
   })
 }
 

@@ -27,7 +27,7 @@ const MoviePreview = ({ name, original_title, title, release_date, vote_average,
   )
 }
 
-export default MoviePreview
+export default MoviePreview;
 
 MoviePreview.propTypes = {
   title: PropTypes.string,

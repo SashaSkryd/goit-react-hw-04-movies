@@ -3,69 +3,94 @@ import { fetchMovie } from "../../services/base-http.services.js"
 import { Link, Route, Switch } from "react-router-dom"
 import MoviePreview from "../../components/MoviePreview/MoviePreview.js"
 import Button from "../../components/Button/Button.js"
+import Spinner from "../../components/Spinner/Spinner.js"
 
 export default class MovieDetailsView extends Component {
   state = {
-    id: "",
-    genres: [],
-    release_date: "",
-    overview: "",
-    vote_average: 0,
-    poster_path: "",
-    title: "",
-    original_title: "",
-    name: "",
+    movie: null,
+    isLoad: false,
+    isError: null,
   }
 
   componentDidMount() {
     const { movieId } = this.props.match.params
-
-    fetchMovie(movieId).then((movie) => {
-      this.setState({ ...movie })
-    })
+    this.setState({ isLoad: true })
+    fetchMovie(movieId)
+      .then((movie) => {
+        this.setState({ movie: movie })
+      })
+      .catch((error) => this.setState({ isError: true }))
+      .finally(this.setState({ isLoad: false }))
   }
 
   handleGoBack = () => {
     const { location, history } = this.props
-
-    if (!location.state) {
-      history.push("/")
+    if (location.state) {
+      history.push(location.state.from)
       return
     }
-    history.goBack()
+    history.push("/")
   }
 
   render() {
-    const { id, name, original_title, title, release_date, vote_average, overview, poster_path, genres } = this.state
+    const { movie, isLoad, isError } = this.state
+
     const { match } = this.props
 
-    return (
+    const main = (
       <>
-        <Button onClick={this.handleGoBack} caption="Go back" />
-
         <MoviePreview
-          name={name}
-          original_title={original_title}
-          title={title}
-          release_date={release_date}
-          vote_average={vote_average}
-          overview={overview}
-          poster_path={poster_path}
-          genres={genres}
+          name={movie.name}
+          original_title={movie.original_title}
+          title={movie.title}
+          release_date={movie.release_date}
+          vote_average={movie.vote_average}
+          overview={movie.overview}
+          poster_path={movie.poster_path}
+          genres={movie.genres ? movie.genres : []}
         />
         <p>Additional information</p>
-        <ul key={id}>
+        <ul key={movie.id}>
           <li>
-            <Link to={`${match.url}/cast`}>Cast</Link>
+            <Link
+              to={{
+                pathname: `${match.url}/cast`,
+                state:
+                  this.props.location.state === undefined
+                    ? undefined
+                    : { from: this.props.location && this.props.location.state.from },
+              }}
+            >
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to={`${match.url}/reviews`}>Reviews</Link>
+            <Link
+              to={{
+                pathname: `${match.url}/reviews`,
+                state:
+                  this.props.location.state === undefined
+                    ? undefined
+                    : { from: this.props.location && this.props.location.state.from },
+              }}
+            >
+              Reviews
+            </Link>
           </li>
         </ul>
         <Switch>
           <Route path={`${match.path}/cast`} exact component={lazy(() => import("../../components/Cast/Cast"))} />
           <Route path={`${match.path}/reviews`} exact component={lazy(() => import("../../components/Reviews/Reviews"))} />
         </Switch>
+      </>
+    )
+
+    const mistakeMain = <p>NOT FOUND THIS PAGE</p>
+
+    return (
+      <>
+        <Button onClick={this.handleGoBack} caption="Go back" />
+        {isLoad ? <Spinner /> : !isError && movie ? main : mistakeMain}
       </>
     )
   }

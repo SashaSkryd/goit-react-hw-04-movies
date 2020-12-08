@@ -3,11 +3,11 @@ import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
 const MovieListItem = (props) => {
-  const { link, title, name, original_title } = props
+  const { link, title, name, original_title, location } = props
 
   return (
     <li>
-      <Link to={{ pathname: `movie/${link}`, state: { from: `movie/${link}` } }}>{title || name || original_title}</Link>
+      <Link to={{ pathname: `movie/${link}`, state: { from: location} }}>{title || name || original_title}</Link>
     </li>
   )
 }

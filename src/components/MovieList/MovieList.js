@@ -2,11 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import MovieListItem from "./MovieListItem/MovieListItem.js"
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, location }) => {
   return (
     <ul>
       {movies.map(({ id, ...rest }) => (
-        <MovieListItem key={id} {...rest} link={id + ""} />
+        <MovieListItem key={id} {...rest} link={id + ""} location={location}/>
       ))}
     </ul>
   )

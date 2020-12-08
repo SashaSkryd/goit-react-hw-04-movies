@@ -26,9 +26,12 @@ export default class MovieView extends Component {
   }
 
   searchMovie(value) {
-    fetchQuery(value).then((data) => {
-      this.setState({ results: data.results })
-    })
+    if (value) {
+      fetchQuery(value).then((data) => {
+        this.setState({ results: data.results })
+      })
+    }
+    this.setState({ results: [] })
   }
 
   handleChange = ({ target }) => {
@@ -52,13 +55,16 @@ export default class MovieView extends Component {
 
   render() {
     const { value, results } = this.state
+    if (value === undefined) {
+      return
+    }
     return (
       <>
         <form onSubmit={this.handleSubmit}>
           <input name="value" onChange={this.handleChange} value={value} autoFocus />
           <button type="submit">Search</button>
         </form>
-        <MovieList movies={results} />
+        <MovieList movies={results} location={this.props.location} />
       </>
     )
   }

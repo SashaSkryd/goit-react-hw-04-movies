@@ -11,7 +11,7 @@ const Navigation = () => (
       </NavLink>
     </li>
     <li className={style.navItem}>
-      <NavLink to="/movies" className={style.navLink} activeClassName={style.navLinkActive}>
+      <NavLink to="/movie" className={style.navLink} activeClassName={style.navLinkActive}>
         Movies
       </NavLink>
     </li>
