@@ -75,7 +75,7 @@ export default class MovieDetailsView extends Component {
                 state:
                   this.props.location.state === undefined
                     ? undefined
-                    : { from: this.props.location && this.props.location.state.from },
+                    : { from: this.props.location &&  this.props.location.state.from},
               }}
             >
               Reviews
@@ -83,8 +83,8 @@ export default class MovieDetailsView extends Component {
           </li>
         </ul>
         <Switch>
-          <Route path={`${match.path}/cast`} exact component={lazy(() => import("../../components/Cast/Cast"))} />
-          <Route path={`${match.path}/reviews`} exact component={lazy(() => import("../../components/Reviews/Reviews"))} />
+          <Route path={`${match.path}/cast` } exact component={lazy(() => import("../../components/Cast/Cast"))}/>
+          <Route path={ `${match.path}/reviews` } exact component={lazy(() => import("../../components/Reviews/Reviews"))} />
         </Switch>
       </>) : (<p>NOT FOUND THIS PAGE</p>)}
       </>
